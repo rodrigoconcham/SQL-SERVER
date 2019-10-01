@@ -1,0 +1,121 @@
+-----------------------------------------------------------------
+-- Numbers F0 through F10 in Fibonacci sequence
+-----------------------------------------------------------------
+WITH FibonacciNumbers (RecursionLevel, FibonacciNumber, NextNumber) 
+AS (
+   -- Anchor member definition
+   SELECT  0  AS RecursionLevel,
+           0  AS FibonacciNumber,
+           1  AS NextNumber
+   UNION ALL
+   -- Recursive member definition
+   SELECT  a.RecursionLevel + 1             AS RecursionLevel,
+           a.NextNumber                     AS FibonacciNumber,
+           a.FibonacciNumber + a.NextNumber AS NextNumber
+   FROM FibonacciNumbers a
+   WHERE a.RecursionLevel < 10
+)
+-- Statement that executes the CTE
+SELECT  'F' + CAST( fn.RecursionLevel AS VARCHAR) AS FibonacciOrdinal, 
+        fn.FibonacciNumber,
+        fn.NextNumber
+FROM FibonacciNumbers fn; 
+GO
+
+-----------------------------------------------------------------
+-- Numbers F0 through F50 in Fibonacci sequence
+-----------------------------------------------------------------
+WITH FibonacciNumbers (RecursionLevel, FibonacciNumber, NextNumber) 
+AS (
+   -- Anchor member definition
+   SELECT  0  AS RecursionLevel,
+           0  AS FibonacciNumber,
+           1  AS NextNumber
+   UNION ALL
+   -- Recursive member definition
+   SELECT  a.RecursionLevel + 1             AS RecursionLevel,
+           a.NextNumber                     AS FibonacciNumber,
+           a.FibonacciNumber + a.NextNumber AS NextNumber
+   FROM FibonacciNumbers a
+   WHERE a.RecursionLevel < 50
+)
+-- Statement that executes the CTE
+SELECT  'F' + CAST( fn.RecursionLevel AS VARCHAR) AS FibonacciOrdinal, 
+        fn.FibonacciNumber,
+        fn.NextNumber
+FROM FibonacciNumbers fn;
+
+-----------------------------------------------------------------
+-- Numbers F0 through F50 in Fibonacci sequence
+-- with CAST
+-----------------------------------------------------------------
+WITH FibonacciNumbers (RecursionLevel, FibonacciNumber, NextNumber) 
+AS (
+   -- Anchor member definition
+   SELECT  0                 AS RecursionLevel,
+           CAST(0 AS FLOAT)  AS FibonacciNumber,
+           CAST(1 AS FLOAT)  AS NextNumber
+   UNION ALL
+   -- Recursive member definition
+   SELECT  a.RecursionLevel + 1             AS RecursionLevel,
+           a.NextNumber                     AS FibonacciNumber,
+           a.FibonacciNumber + a.NextNumber AS NextNumber
+   FROM FibonacciNumbers a
+   WHERE a.RecursionLevel < 50
+)
+-- Statement that executes the CTE
+SELECT  'F' + CAST( fn.RecursionLevel AS VARCHAR) AS FibonacciOrdinal, 
+        fn.FibonacciNumber,
+        fn.NextNumber
+FROM FibonacciNumbers fn;
+GO
+
+-----------------------------------------------------------------
+-- Numbers F0 through F1000 in Fibonacci sequence
+-----------------------------------------------------------------
+WITH FibonacciNumbers (RecursionLevel, FibonacciNumber, NextNumber) 
+AS (
+   -- Anchor member definition
+   SELECT  0                 AS RecursionLevel,
+           CAST(0 AS FLOAT)  AS FibonacciNumber,
+           CAST(1 AS FLOAT)  AS NextNumber
+   UNION ALL
+   -- Recursive member definition
+   SELECT  a.RecursionLevel + 1             AS RecursionLevel,
+           a.NextNumber                     AS FibonacciNumber,
+           a.FibonacciNumber + a.NextNumber AS NextNumber
+   FROM FibonacciNumbers a
+   WHERE a.RecursionLevel < 1000
+)
+-- Statement that executes the CTE
+SELECT  'F' + CAST( fn.RecursionLevel AS VARCHAR) AS FibonacciOrdinal, 
+        fn.FibonacciNumber,
+        fn.NextNumber
+FROM FibonacciNumbers fn;
+GO
+
+-----------------------------------------------------------------
+-- Numbers F0 through F1000 in Fibonacci sequence
+-- with MAXRECURSION 0
+-----------------------------------------------------------------
+WITH FibonacciNumbers (RecursionLevel, FibonacciNumber, NextNumber) 
+AS (
+   -- Anchor member definition
+   SELECT  0                 AS RecursionLevel,
+           CAST(0 AS FLOAT)  AS FibonacciNumber,
+           CAST(1 AS FLOAT)  AS NextNumber
+   UNION ALL
+   -- Recursive member definition
+   SELECT  a.RecursionLevel + 1             AS RecursionLevel,
+           a.NextNumber                     AS FibonacciNumber,
+           a.FibonacciNumber + a.NextNumber AS NextNumber
+   FROM FibonacciNumbers a
+   WHERE a.RecursionLevel < 1000
+)
+-- Statement that executes the CTE
+SELECT  'F' + CAST( fn.RecursionLevel AS VARCHAR) AS FibonacciOrdinal, 
+        fn.FibonacciNumber,
+        fn.NextNumber
+FROM FibonacciNumbers fn
+OPTION (MAXRECURSION 0);
+GO
